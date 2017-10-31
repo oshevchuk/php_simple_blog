@@ -125,7 +125,7 @@ if (isset($_POST["text"])) {
         echo "<b><i> - file created! </i></b>";
 
         if(isset($_POST["mail"]) && $_POST["mail"]=="on") {
-            $to = $re->from->email;// "frostmorn@bigmir.net";
+            $to = $re->from->email;
             $subject = "Secret Santa";
             $txt = $re->to . " mail: " . $re->to->mail;
             $headers = "From: webmaster@example.com" . "\r\n" . "CC: somebodyelse@example.com";
