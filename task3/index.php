@@ -106,7 +106,7 @@ if (isset($_POST["text"])) {
             }else{
                 echo " <i><b>colision(double), try again</b></i>";
             }
-        }else{  
+        }else{
             echo " <i><b>colision(same), try again</b></i>";
         }
         $break--;
@@ -116,7 +116,6 @@ if (isset($_POST["text"])) {
 
     echo "<h2>Result:</h2>";
 
-    echo "<hr>";
     foreach ($res as $re) {
         echo "<br>".$re;
         $myfile = fopen( $re->from.".txt", "w") or die("Unable to open file!");
