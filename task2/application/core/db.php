@@ -29,7 +29,6 @@ class DB{
     }
 
     public function getUserLog($login, $password){
-//        die($login.'|'.$password);
         $posts=$this->pdo->prepare('select * from users WHERE login = :login and password = :password');
         $posts->execute(array(
             ':login' => $login,

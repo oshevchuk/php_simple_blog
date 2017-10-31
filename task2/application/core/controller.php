@@ -10,7 +10,6 @@ class Controller{
     }
 
     function action_index(){
-        echo 'actoin index pare';
-        $this -> view -> generate('myview', 'template.php');
+
     }
 }

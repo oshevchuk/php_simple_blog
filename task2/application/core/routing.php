@@ -6,9 +6,9 @@ class Routing{
         $actionName='index';
         $piecesOfUrl=explode('/', $_SERVER['REQUEST_URI']);
 
-        if(!empty($piecesOfUrl[1])){
+//        if(!empty($piecesOfUrl[1])){
 //            $controllerName=$piecesOfUrl[1];
-        }
+//        }
         if(!empty($piecesOfUrl[1])){
             $actionName=$piecesOfUrl[1];
         }
@@ -35,10 +35,8 @@ class Routing{
 //            error 404
         }
 
-//        include 'application/controllers/'.$controllerName.'.php';
         $controller = new $controllerName;
         $action=$actionName;
-//        die('*'.$action.'*');
         if(method_exists($controller, $action)){
             call_user_func(array($controller, $actionName), $piecesOfUrl);
         }else{
