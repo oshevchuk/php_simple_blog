@@ -106,7 +106,7 @@ if (isset($_POST["text"])) {
             }else{
                 echo " <i><b>colision(double), try again</b></i>";
             }
-        }else{
+        }else{  
             echo " <i><b>colision(same), try again</b></i>";
         }
         $break--;
