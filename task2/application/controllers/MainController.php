@@ -1,5 +1,4 @@
 <?php
-//require '../core/db.php';
 
 class MainController extends Controller{
     public $model_;
@@ -9,31 +8,60 @@ class MainController extends Controller{
     function __construct()
     {
         parent::__construct();
-//        echo '1';
         $this->view_ = new View();
         $this->db = new DB();
     }
     
     public function action_index($data)
     {
-//        print_r($data);
-//        echo 'actoin index child';
-//        parent::$view->generate('myview', 'template.php');
-//        $this->view_->generate('myview', 'template.php');
         $this->view_->generate('main', 'template.php');
     }
     public function action_q($data){
-//        echo '<hr>';
-//        print_r($data);
         $this->view_->generate('main', 'template.php', $data);
-//        echo 'rewhguirhewphwerpu*-//*/*';
     }
     public function action_main(){
-//        echo 'main';
-        $this->view_->generate('main', 'template.php', 'main');
+        $this->view_->generate('main', 'template.php', $this->db->getPosts());
     }
+
+    public function action_post($id){
+        $this->view_->generate('post', 'template.php', $this->db->getPost($id[2]), $this->db->getComments($id[2]));
+    }
+
+    public function action_removeComment($id){
+        $this->db->removeComments($_POST["coment"]);
+        header('Location: ' . $_SERVER['HTTP_REFERER']);
+    }
+
+    public function action_editComment(){
+        $this->db->updateComment($_POST["id"], $_POST["text"]);
+        header('Location: ' . $_SERVER['HTTP_REFERER']);
+    }
+
     public function action_current_work(){
         $this->view_->generate('current_work', 'template.php', 'current_work');
+    }
+    
+    public function action_newpost(){
+        if(isset($_POST["post"])){
+            $this->db->savePost();
+            header('Location: main');
+        }
+        $this->view_->generate('newpost', 'template.php', '');
+    }
+
+    public function action_deletepost($id){
+        if($_COOKIE["user"]=='admin' && isset($id[2])){
+
+            $this->db->deletePost($id[2]);
+        }
+
+    }
+    
+    public function action_addcoment(){
+        if(isset($_POST["user"])){
+            $this->db->setComments($_POST["id"], $_POST["comment"]);
+        }
+        header('Location: ' . $_SERVER['HTTP_REFERER']);
     }
 
     public function action_home_work(){
@@ -44,7 +72,7 @@ class MainController extends Controller{
     }
     public function action_auth(){
         if(isset($_POST["login"])){
-            $res = $this->db->getUser($_POST["login"]);
+            $res = $this->db->getUserLog($_POST["login"], $_POST["password"]);
             if(count($res)>=1){
                 setcookie("user", $_POST["login"]);
                 header('Location: main');

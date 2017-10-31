@@ -1,13 +1,14 @@
 .footer{
-    width: 100%;
+    /*width: 100%;*/
     background-color: bisque;
-    min-height: 100px;
+    /*min-height: 100px;*/
     padding-top: 20px;
     text-align: center;
     padding-bottom: 20px;
-    position: fixed;
-    bottom: 0;
-    left:0;
+    /*position: fixed;*/
+    /*position: relative;*/
+    /*bottom: 0;*/
+    /*left:0;*/
 }
 
 .menu{
@@ -51,4 +52,31 @@
     margin:auto;
     margin-top: 50px;
     max-width: 800px;
+    min-height: calc(100vh - 170px);
+}
+
+.com{
+    width: 80%;
+    background-color: rgba(210,210,210, 0.1);
+    float: right;
+}
+.h{
+    width: 100%;
+    display: flex;
+    margin-top: 20px;
+    padding: 20px 0;
+    background-color: #2ecc71;
+    text-align: center;
+}
+
+.edit_coment input{
+    display: none;
+}
+
+.buttons form{
+    display: flex;
+}
+.buttons{
+    width: 100%;
+    display: flex;
 }

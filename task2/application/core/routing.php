@@ -9,10 +9,10 @@ class Routing{
         if(!empty($piecesOfUrl[1])){
 //            $controllerName=$piecesOfUrl[1];
         }
-        if(!empty($piecesOfUrl[3])){
-            $actionName=$piecesOfUrl[3];
+        if(!empty($piecesOfUrl[1])){
+            $actionName=$piecesOfUrl[1];
         }
-//        print_r($piecesOfUrl);
+//        die(print_r($piecesOfUrl));
         $modelName='Model_'.$controllerName;
 
         $controllerName=$controllerName.'Controller';
