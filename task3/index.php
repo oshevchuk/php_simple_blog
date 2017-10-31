@@ -14,6 +14,8 @@ test7@mail.com Jone7 Doe7! Petrovich7";
     <form action="" method="post">
         <textarea name="text" id="text" cols="30" rows="10" style="min-width: 400px;"><?= $text; ?></textarea>
         <br>
+        <input type="checkbox" name="mail" > send email?
+        <br>
         <input type="submit" value="Generate">
     </form>
 </div>
@@ -57,12 +59,15 @@ class Present
     }
 }
 
-echo "<h2>Parsed elements:</h2>";
-
-$peoples = [];
-$res = [];
 
 if (isset($_POST["text"])) {
+
+    echo "<h2>Parsed elements:</h2>";
+
+    $peoples = [];
+    $res = [];
+
+
     $input = $_POST["text"];
 //        strpos($input, "\n");
 //    for($i=0; $i<strlen($input); $i++){
@@ -133,5 +138,15 @@ if (isset($_POST["text"])) {
         fwrite($myfile, $re->to);
         fclose($myfile);
 
+        if(isset($_POST["mail"]) && $_POST["mail"]=="on") {
+            $to = $re->from->email;// "frostmorn@bigmir.net";
+            $subject = "Secret Santa";
+            $txt = $re->to . " mail: " . $re->to->mail;
+            $headers = "From: webmaster@example.com" . "\r\n" .
+                "CC: somebodyelse@example.com";
+
+            mail($to, $subject, $txt, $headers);
+            echo "mail sended";
+        }
     }
 }
