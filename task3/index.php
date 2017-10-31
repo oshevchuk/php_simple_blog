@@ -33,20 +33,34 @@ class People
         $this->lastname = $lastname;
         $this->surname = $surname;
     }
-}
 
-class Present{
-    public $from;
-    public $to;
-    function __construct($from, $to)
+    function __toString()
     {
-        $this->from=$from;
-        $this->to=$to;
+        return $this->name;
     }
 }
 
+class Present
+{
+    public $from;
+    public $to;
+
+    function __construct($from, $to)
+    {
+        $this->from = $from;
+        $this->to = $to;
+    }
+
+    function __toString()
+    {
+        return $this->from . " -> " . $this->to;
+    }
+}
+
+echo "<h2>Parsed elements:</h2>";
+
 $peoples = [];
-$res=[];
+$res = [];
 
 if (isset($_POST["text"])) {
     $input = $_POST["text"];
@@ -56,36 +70,63 @@ if (isset($_POST["text"])) {
 //    }
     $segments = explode(' ', $input);
 //    echo count($segments);
-    for($i=0; $i< count($segments); $i+=4){
+    for ($i = 0; $i < count($segments); $i += 4) {
 //        echo $segments[$i].'<<';
 
-        array_push($peoples, new People($segments[$i], $segments[$i+1], $segments[$i+2], $segments[$i+3]));
+        array_push($peoples, new People($segments[$i], $segments[$i + 1], $segments[$i + 2], $segments[$i + 3]));
     }
 
-    $clone=$peoples;
-    shuffle($clone);
-    shuffle($peoples);
-    foreach ($peoples as $p){
-        print_r($p);
-        echo "<br>";
-    }
-    echo "<hr>";
-    foreach ($clone as $p){
+    $clone = $peoples;
+//    shuffle($clone);
+//    shuffle($peoples);
+    foreach ($peoples as $p) {
         print_r($p);
         echo "<br>";
     }
 
-    echo "<hr>";
-    for($i=0; $i<count($peoples); $i++){
-        if($peoples[$i]!=$clone[$i]){
-            array_push($res, new Present($peoples[$i], $peoples[$i]));
-            unset($clone[$i]);
-            unset($peoples[$i]);
+
+    echo "<h2>Random logic:</h2>";
+
+    $tt = [];
+    $i = 0;
+    $count= count($peoples)-1;
+    echo "<i>blocks:</i>".$count;
+    $break=1000;
+    while ($i < count($peoples) && $break>0) {
+        $current = $peoples[$i];
+
+        $index = rand(0, $count);
+        $get_people = $peoples[$index];
+        echo "<br><b>block $i</b>,<i>compare: </i>".$current . ' vs ' . $get_people  ;
+
+
+        if ($current != $get_people) {
+            if(in_array($get_people, $tt)!=1) {
+//                echo "------".in_array($get_people, $tt).'------';
+
+                $prepare = new Present($current, $get_people);
+                array_push($res, $prepare);
+                array_push($tt, $get_people);
+//            unset($peoples[$i]);
+                $i++;
+                echo "<b> - ok</b>";
+//                echo "<br>" . $i;
+//            echo $prepare;
+            }else{
+                echo " <i><b>colision(double), try again</b></i>";
+            }
         }else{
-            echo  '*';
+            echo " <i><b>colision(same), try again</b></i>";
         }
+        $break--;
+        if($break<0)
+            echo "<h3><b>break something wrong</b></h3>";
     }
+
+    echo "<h2>Result:</h2>";
+
     echo "<hr>";
-    print_r($clone);
-//    print_r($res);
+    foreach ($res as $re) {
+        echo $re."<br>";
+    }
 }
