@@ -36,7 +36,7 @@ class People
 
     function __toString()
     {
-        return $this->name;
+        return $this->name.'_'.$this->lastname.'_'.$this->surname;
     }
 }
 
@@ -128,5 +128,10 @@ if (isset($_POST["text"])) {
     echo "<hr>";
     foreach ($res as $re) {
         echo $re."<br>";
+
+        $myfile = fopen( $re->from.".txt", "w") or die("Unable to open file!");
+        fwrite($myfile, $re->to);
+        fclose($myfile);
+
     }
 }
