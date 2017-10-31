@@ -1,4 +1,4 @@
-<!--<h1>Таємний Санта</h1>-->
+<h1>Таємний Санта</h1>
 
 <?php
 $text = "test@mail.com Jone1 Doe1! Petrovich1 
@@ -61,28 +61,20 @@ class Present
 
 
 if (isset($_POST["text"])) {
-
     echo "<h2>Parsed elements:</h2>";
 
     $peoples = [];
     $res = [];
 
-
     $input = $_POST["text"];
-//        strpos($input, "\n");
-//    for($i=0; $i<strlen($input); $i++){
-//        echo ord($input[$i]).'('.$input[$i].')';
-//    }
-    $segments = explode(' ', $input);
-//    echo count($segments);
-    for ($i = 0; $i < count($segments); $i += 4) {
-//        echo $segments[$i].'<<';
 
+    $segments = explode(' ', $input);
+
+    for ($i = 0; $i < count($segments); $i += 4) {
         array_push($peoples, new People($segments[$i], $segments[$i + 1], $segments[$i + 2], $segments[$i + 3]));
     }
 
-    $clone = $peoples;
-//    shuffle($clone);
+
 //    shuffle($peoples);
     foreach ($peoples as $p) {
         print_r($p);
@@ -104,19 +96,13 @@ if (isset($_POST["text"])) {
         $get_people = $peoples[$index];
         echo "<br><b>block $i</b>,<i>compare: </i>".$current . ' vs ' . $get_people  ;
 
-
         if ($current != $get_people) {
             if(in_array($get_people, $tt)!=1) {
-//                echo "------".in_array($get_people, $tt).'------';
-
                 $prepare = new Present($current, $get_people);
                 array_push($res, $prepare);
                 array_push($tt, $get_people);
-//            unset($peoples[$i]);
                 $i++;
                 echo "<b> - ok</b>";
-//                echo "<br>" . $i;
-//            echo $prepare;
             }else{
                 echo " <i><b>colision(double), try again</b></i>";
             }
@@ -132,21 +118,19 @@ if (isset($_POST["text"])) {
 
     echo "<hr>";
     foreach ($res as $re) {
-        echo $re."<br>";
-
+        echo "<br>".$re;
         $myfile = fopen( $re->from.".txt", "w") or die("Unable to open file!");
         fwrite($myfile, $re->to);
         fclose($myfile);
+        echo "<b><i> - file created! </i></b>";
 
         if(isset($_POST["mail"]) && $_POST["mail"]=="on") {
             $to = $re->from->email;// "frostmorn@bigmir.net";
             $subject = "Secret Santa";
             $txt = $re->to . " mail: " . $re->to->mail;
-            $headers = "From: webmaster@example.com" . "\r\n" .
-                "CC: somebodyelse@example.com";
-
+            $headers = "From: webmaster@example.com" . "\r\n" . "CC: somebodyelse@example.com";
             mail($to, $subject, $txt, $headers);
-            echo "mail sended";
+            echo " <b> - mail sended!</b>";
         }
     }
 }
