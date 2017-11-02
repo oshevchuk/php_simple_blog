@@ -4,26 +4,34 @@
     <meta charset="UTF-8">
     <title>Calculator</title>
     <link rel="stylesheet" href="style.css">
+    <script
+        src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
 </head>
 <body>
 <div class="calculator_body">
     <form action="index.php" method="post">
+        h<input type="text" name="hiden"  value="<?= $value;?>">
+        p<input type="text" name="prev"  value="<?= $prev;?>">
+        o<input type="text" name="op"  value="<?= $op;?>">
         <div class="row display">
-            <b>0</b>
-            <input type="hidden" name="hiden" hidden value="<?= $value;?>">
+            <b><?=$value;?></b>
+
+
         </div>
         <div class="row">
             <div class="btn">
-                <button type="submit" value="7" name="value">7</button>
+                <button value="7" name="value">7</button>
             </div>
             <div class="btn">
-                <button type="submit" value="8" name="value">8</button>
+                <button  value="8" name="value">8</button>
             </div>
             <div class="btn">
-                <button type="submit" value="9" name="value">9</button>
+                <button  value="9" name="value">9</button>
             </div>
             <div class="btn green">
-                <button type="submit" value="X" name="value">x</button>
+                <button type="submit" value="X" name="operator">x</button>
             </div>
         </div>
         <div class="row">
@@ -37,7 +45,7 @@
                 <button type="submit" value="6" name="value">6</button>
             </div>
             <div class="btn green">
-                <button type="submit" value="-" name="value">-</button>
+                <button type="submit" value="-" name="operator">-</button>
             </div>
         </div>
         <div class="row">
@@ -51,7 +59,7 @@
                 <button type="submit" value="3" name="value">3</button>
             </div>
             <div class="btn green">
-                <button type="submit" value="+" name="value">+</button>
+                <button type="submit" value="+" name="operator">+</button>
             </div>
         </div>
         <div class="row">
@@ -62,14 +70,17 @@
                 <button type="submit" value="," name="value">,</button>
             </div>
             <div class="btn red">
-                <button type="submit" value="=" name="value">=</button>
+                <button type="submit" value="=" name="operator">=</button>
             </div>
             <div class="btn green">
-                <button type="submit" value="/" name="value">/</button>
+                <button type="submit" value="/" name="operator">/</button>
             </div>
         </div>
     </form>
 
 </div>
+<script>
+
+</script>
 </body>
 </html>
