@@ -1,8 +1,7 @@
 body{
     /*background-color: black;*/
     color: grey;
-    display: flex;
-    justify-content: center;
+    /*display: flex;*/
     align-items: center;
     margin:0;
     min-height: 99vh;
@@ -69,35 +68,4 @@ input{
 
 button:hover{
     background-color: #4a2e2b!important;
-}
-
-.debug input{
-    width: 30px;
-    font-size: 11px;
-}
-.debug p{
-    margin: 2px;
-    font-size: 11px;
-}
-.debug{
-    position: fixed;
-    top: 10px;
-    right: 10px;
-    border: 1px solid grey;
-    padding: 5px;
-}
-form{
-    display: inline-block;
-    border: 1px solid grey;;
-    padding: 7px;
-    background-color: rgba(240,240,240,0.3);
-    border-radius: 4px;
-}
-.val{
-    width: calc(100% - 10px);
-    font-size: 20px;
-    box-sizing: border-box;
-    padding: 5px;
-    height: 40px;
-    margin: 5px;
 }

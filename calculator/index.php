@@ -1,66 +1,58 @@
 <?php
-header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
-header("Cache-Control: post-check=0, pre-check=0", false);
-header("Pragma: no-cache");
 
-$value = '';
-$prev = '';
-$op = 0;
+$req1 ="";
+$req2 ="";
+$op1="";
+$op2="";
+$ans=0;
 
-if (isset($_POST["op"]))
-    $op = $_POST["op"];
+if(isset($_POST["operator"])){
+    if(isset($_POST['req1'])){
+        $req1=$_POST['req1'];
+    }
+    if(isset($_POST['req2'])){
+        $req2=$_POST['req2'];
+    }
+    if(isset($_POST["operator"])){
+        $op1=$_POST["operator"];
+    }
+    if(isset($_POST['op2'])){
+        $op2=$_POST['op2'];
+    }
 
-if (isset($_POST["value"])) {
-    if ($op == 0) {
-        $tmp = $_POST["hiden"] . $_POST["value"];
-        if (strlen($tmp) < 10) {
-            $value = $tmp;
-        } else {
-            $value = $_POST["hiden"];
-            $prev = $_POST["prev"];
+
+    if($req2){
+        if($op1!='=')
+            $req1 = $ans = doOperator($op2, $req1, $req2);
+        else{
+            $req1 = $ans = doOperator($op2, $req1, $req2);
+            $op1=$op2;
         }
-        $prev = $_POST["prev"];
-    } else {
-        $prev = $_POST["hiden"];
-        $value=$_POST["value"];
-        $tmp = $_POST["value"];
     }
-
-
-    $op = 0;
 }
 
-if (isset($_POST["operator"])) {
-    switch ($_POST["operator"]) {
+
+function doOperator($operator, $r1, $r2){
+    $r1=floatval($r1);
+    $r2=floatval($r2);
+    switch ($operator){
+        case 'X':
+            return $r2 * $r1;
+            break;
         case '+':
-            if ($_POST["prev"] != '') {
-                $value = $_POST["prev"] + $_POST["hiden"];
-            }else{
-                $value=$_POST["hiden"];
-            }
-            $prev = $_POST["hiden"];
-            
-            $op = 1;
+            return $r2 + $r1;
             break;
-
         case '-':
-            if ($_POST["prev"] != '') {
-                $value = $_POST["prev"] - $_POST["hiden"];
-            }else{
-                $value=$_POST["hiden"];
-            }
-            $prev = $_POST["hiden"];
-
-            $op = 1;
+            return $r2 - $r1;
             break;
-
+        case '/':
+            return $r2 / $r1;
+            break;
         case '=':
-            if ($_POST["prev"] != '' && $_POST["hiden"]!='') {
-//                $value=
-            }
+            return $r1;
             break;
     }
-
 }
 
+//------------------------
 require 'layout.php';
