@@ -17,7 +17,7 @@ if (!isset($_SESSION['score'])) {
 }
 
 if (isset($_POST["answer"])) {
-//    print_r($_POST["answer"]);
+
 
     switch ($_POST["type"]) {
         case 'radio':
@@ -53,7 +53,7 @@ if (!isset($_SESSION['count'])) {
             require 'questions/quest' . $_SESSION['count'] . '.php';
 
     }else{
-//        echo '>>' . $_SESSION['score'];
+
         require 'results.php';
     }
 }
