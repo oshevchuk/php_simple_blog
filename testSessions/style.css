@@ -1,0 +1,14 @@
+.question, .block{
+    width: 500px;
+    padding: 10px;
+    border: 1px solid black;
+    background-color: rgb(250,250,250);
+    margin:auto;
+}
+
+.blockis{
+    width: 500px;
+    margin: auto;
+    display: block;
+    margin-top: 15px;;
+}
